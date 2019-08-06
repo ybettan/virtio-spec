@@ -1,0 +1,61 @@
+\section{Increment-edu Device}\label{sec:Device Types / Increment-edu Device}
+
+The virtio Increment-edu device is a simple virtual incremental device that
+increment the number represented by its input by 1.
+Read and write requests are placed in the queue, and serviced
+(probably out of order) by the device.
+The main purpose of this device is to be used as a reference for new contributors
+if they wish to create a new virtio device, therefore, it contains minimum
+functionality and mostly describe the building blocks of the virtio-protocol.
+
+\subsection{Device ID}\label{sec:Device Types / Increment-edu Device / Device ID}
+  21
+
+\subsection{Virtqueues}\label{sec:Device Types / Increment-edu Device / Virtqueues}
+\begin{description}
+\item[0] requestq
+\end{description}
+
+\subsection{Feature bits}\label{sec:Device Types / Increment-edu Device / Feature bits}
+
+None currently defined.
+
+\subsection{Device configuration layout}\label{sec:Device Types / Increment-edu Device / Device configuration layout}
+
+None currently defined.
+
+\subsection{Device Initialization}\label{sec:Device Types / Increment-edu Device / Device Initialization}
+
+\begin{enumerate}
+\item The virtqueue is initialized
+\end{enumerate}
+
+\subsection{Device Operation}\label{sec:Device Types / Increment-edu Device / Device Operation}
+
+When the driver need computation, it places a request that consist of both
+input and output elements into the queue.
+The first element is used as an input for the device and contain a 4 bytes
+integer, and the second is given for the device to fill the result in it as a
+4 bytes integer indeed.
+
+Both the input and the output are in little-endian bytes order.
+
+The device is increasing this integer by 1, meaning the LSB will be
+increased by 1 and if needed the carry will be carried to the next byte.
+
+If the device get a number that is out of the range of a 4 bytes integer only
+the lower bytes that fit the size of a 4 bytes integer will represent the input
+and the upper bytes will be ignored.
+If the result is out of range then only the lower bytes will be written as
+result as well.
+
+\drivernormative{\subsubsection}{Device Operation}{Device Types / Increment-edu Device / Device Operation}
+
+The driver MUST place the 2 elements in the same request (buffer) in order to
+make a request atomically handled by the device, the first element contains the
+input and should be read-only and the second should be write-only.
+
+\devicenormative{\subsubsection}{Device Operation}{Device Types / Increment-edu Device / Device Operation}
+
+The device MUST place the result inside the output element allocated by the
+driver.
