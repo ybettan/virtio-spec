@@ -146,6 +146,36 @@ Fixes: https://github.com/oasis-tcs/virtio-spec/issues/NNN
 and asking for a vote. </li>
 </ol>
 
+
+## Steps to create a new virtio device
+
+When creating a new device there are some steps we should follow:
+
+1. write the device specification
+    * merge it into the official virtio specification (this repository) as described
+      * `git clone git clone https://github.com/oasis-tcs/virtio-spec.git`
+      * add your device
+        * use [ybettan/virtio-spec/increment-edu branch][ybettan/virtio-spec/increment-edu branch] as reference
+      * send your patch to virtio-comment@lists.oasis-open.org (mailing list) for review
+   
+2. write the device implementation
+    * you can look at the example device at  [ybettan/qemu/virtio branch][ybettan/qemu/virtio branch] located in my fork of the Qemu project
+    * make sure to follow the full commit to find all other files related
+    * once it’s done, check the [wiki-qemu][wiki-qemu] for the full “how to contribute” to Qemu guide
+
+3. write the Linux driver for this device
+    * you can look at the example driver at  [ybettan/QemuDeviceDrivers-master branch][ybettan/QemuDeviceDrivers-master branch]
+    * in this repository, you have a README.md files describing how to compile the driver and use the device
+    * once it’s done, send the patch to this mailing list: virtualization@lists.linux-foundation.org
+    
+    
+[ybettan/virtio-spec/increment-edu branch]: https://github.com/ybettan/virtio-spec/tree/increment-edu
+[ybettan/qemu/virtio branch]: https://github.com/ybettan/qemu/tree/virtio/hw/virtio
+[ybettan/QemuDeviceDrivers-master branch]: https://github.com/ybettan/QemuDeviceDrivers
+[wiki-qemu]: https://wiki.qemu.org/Contribute
+
+
+
 <h3>Contact</h3>
 <p>Please send questions or comments about <a href="https://www.oasis-open.org/resources/tcadmin/github-repositories-for-oasis-tc-members-chartered-work">OASIS TC GitHub repositories</a> to <a href="mailto:robin@oasis-open.org">Robin Cover</a> and <a href="mailto:chet.ensign@oasis-open.org">Chet Ensign</a>.  For questions about content in this repository, please contact the TC Chair or Co-Chairs as listed on the the virtio TC's <a href="https://www.oasis-open.org/committees/virtio/">home page</a>.</p>
 </div>
