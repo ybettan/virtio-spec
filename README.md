@@ -71,25 +71,47 @@ have any attachments.
 A patch can be generated and sent by cloning the spec repository,
 creating a commit, formatting it as a patch and then sending it.
 For example:
-<code>
-<p>
-git clone https://github.com/oasis-tcs/virtio-spec.git<br>
-... edit spec text, and save ...<br>
-<p>
-git commit -a<br>
-... describe the proposed change, in the following format:<br>
-single line summary<br>
-<br>
-detailed description, including motivation for the change<br>
-<br>
-Signed-off-by: Name &lt;email&gt;<br>
-... then save and close the editor ... <br>
-<p>
-git format-patch -o proposal1/ HEAD~1..<br>
-... generates a new directory proposal1/ and a file starting with 0001- ...<br>
-<p>
-git send-email --to=virtio-comment@lists.oasis-open.org proposal1/0001-*
-</code>
+<ol>
+<li>
+  clone the repository using
+  <code> git clone https://github.com/oasis-tcs/virtio-spec.git </code><br>
+</li>
+
+<li>
+  edit spec text and save<br>
+</li>
+
+<li>
+  commit changes using
+  <code> git commit -a</code> 
+  and describe the proposed change, in the following format:<br>
+  <br>
+  single line summary<br>
+  <br>
+  detailed description, including motivation for the change<br>
+  <br>
+  Signed-off-by: Name &lt;email&gt;<br>
+  <br>
+</li>
+
+<li>
+  save and close the editor<br>
+</li>
+
+<li>
+  create the patch using 
+  <code>
+    git format-patch -o proposal1/ HEAD~N
+  </code> 
+  - it will generates a new directory 'proposal1/' and a files starting with '0001-...' based on the last N commits of your git log <br>
+
+<li>
+  send the patch using 
+  <code>
+    git send-email --to=virtio-comment@lists.oasis-open.org proposal1/0001-*
+  </code>
+</li>
+</ol>
 <h4>Note for TC Members</h4>
 <p>TC Members should review TC specific
 process rules under "Further Description of this Repository"
